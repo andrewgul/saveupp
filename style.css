@@ -1,0 +1,74 @@
+/* #F4F5F8 background
+#3D6ADA  
+
+
+
+*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    
+}
+
+.wrapper {
+    width: 100%;
+}
+
+.header {
+    background-color: #111E6C;
+    color: #FFF;
+}
+
+.header-container {
+    padding: 20px 0;
+}
+
+.content {
+    background-color: #F4F5F8;
+    color: #333;
+    height: 100vh;
+    padding-top: 20px;
+}
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.slogan {
+    color: #F5F5F5;
+    font-size: 14px;
+}
+
+.box {
+    background-color: #FFF;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.text {
+    font-size: 20px;
+}
+
+.line {
+    width: 1px;
+    height: 20px;
+    background-color: #9C9C9C;
+    margin: 0 15px;
+}
+
+
+
