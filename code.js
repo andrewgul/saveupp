@@ -1,30 +1,35 @@
 const date = new Date();
 
 const todayIs = document.getElementById("today-is");
-const daysLeft = document.getElementById("days-left")
-
-// Временный блок
-// В дальнейшем эти данные будут вводиться пользователем,
-// а потом браться из локального хранлилища
-//  
-    let startDay = 12;
-    let startMonth = 0;
-    let startYear = 2020;
-//
-// Конец временного блока
+const showStartDate = document.getElementById("start-date");
+const showEndDate = document.getElementById("end-date");
+const daysPassed = document.getElementById("days-passed");
+const daysLeft = document.getElementById("days-left");
 
 let currentDay = date.getDate();
 let currentMonth = date.getMonth();
 let currentYear = date.getFullYear();
 
 // Временный блок
+// В дальнейшем эти данные будут вводиться пользователем,
+// а потом браться из локального хранлилища
+//  
+    // let startDay = currentDay
+    // let startMonth = currentMonth
+    // let startYear = currentYear
+    let startDay = 12
+    let startMonth = 0
+    let startYear = currentYear
+
+    let daysToSurvive = 18;
+// Временный блок
 // В дальнейшем эти данные будут рассчитываться 
 // после введения пользователем, сохраняться,
 // а потом браться из локального хранлилища
-//
-    let endDay = 18;
-    let endMonth = 0;
-    let endYear = 2020;
+//  
+    let endDay; // = 18;
+    let endMonth; // = 0;
+    let endYear; // = 2020;
 //
 // Конец временного блока
 
@@ -45,34 +50,50 @@ let months = [
 
 if (currentYear == (2020 || 2025 || 2030 || 2035)) { months[2].days = 29 }
 
-console.log(months[2].days)
+countEndDate();
 
-todayIs.textContent = `Today is ${currentDay} ${showMonth()} ${currentYear}`
-daysLeft.textContent = `${countDaysLeft()} days left`;
+todayIs.textContent = `${currentDay} ${showMonth(currentMonth)} ${currentYear}`
+showStartDate.textContent = `${startDay} ${showMonth(startMonth)} ${startYear}`
+showEndDate.textContent = `${endDay} ${showMonth(endMonth)} ${endYear}`
+daysPassed.textContent = `${countDaysPassed()}`;
+daysLeft.textContent = `${daysToSurvive - countDaysPassed()}`;
 
-
-
-function showMonth() {
+function showMonth(month) {
     for (let i = 0; i < months.length; i++) {
-        if (currentMonth == i) {
+        if (month == i) {
             return months[i].name;
-        } else {
-            return "some month"
-            // Этот думаю стоит потом убрать
         }
     }
 }
 
-// let countedEndDay;
+function countEndDate() {
+    if ((daysToSurvive - 1) <= (months[startMonth].days - (startDay - 1))) { // -1 потому что мы считаем и тот день, который сегодня
+        endDay = startDay + daysToSurvive - 1;
+        endMonth = startMonth;
+        endYear = startYear;
+    } else  {
+        endDay = daysToSurvive - (months[startMonth].days - (currentDay - 1));
+        if (startMonth != 11){
+            endMonth = startMonth + 1;
+            endYear = startYear;
+        } else {
+            endMonth = startMonth + 1;
+            endYear = startYear + 1;
+            endMonth = 0;
+        }
+    }
+}
 
-// function countEndDay() {
-//     if ()
-// }
+function countDaysPassed() {
+    if (currentMonth == startMonth) {
+        return currentDay - startDay;
+    } else if (currentMonth == startMonth + 1) {
+        return
+    }
+}
 
-// function countDaysLeft() {
-//     let days;
-//     if (currentMonth == startMonth) {
-//         return day - startDay;
-//     } 
-// }
+
+
+
+
 

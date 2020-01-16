@@ -56,19 +56,28 @@ body {
     padding: 20px;
     border-radius: 18px;
     display: flex;
+    justify-content: space-around;
     align-items: center;
 }
 
 .text {
-    font-size: 20px;
+    font-size: 18px;
+}
+
+.desc {
+    
+}
+
+.value {
+    font-weight: bold;
 }
 
 .line {
     width: 1px;
     height: 20px;
     background-color: #9C9C9C;
-    margin: 0 15px;
 }
+
 
 
 
