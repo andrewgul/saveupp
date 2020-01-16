@@ -5,10 +5,15 @@ const showStartDate = document.getElementById("start-date");
 const showEndDate = document.getElementById("end-date");
 const daysPassed = document.getElementById("days-passed");
 const daysLeft = document.getElementById("days-left");
+const calendar = document.getElementById("calendar");
+const moneySpentADay = document.getElementById("money-spent-a-day");
+
 
 let currentDay = date.getDate();
 let currentMonth = date.getMonth();
 let currentYear = date.getFullYear();
+
+// let moneyToSpend = prompt("How much money you have?")
 
 // Временный блок
 // В дальнейшем эти данные будут вводиться пользователем,
@@ -92,8 +97,48 @@ function countDaysPassed() {
     }
 }
 
+//  ---------------------------
+// Блок для заполнения календаря
+// ---------------------------
+let data = [
+    {dayNum: 1, day: 12, month: 0, year: 2020, moneySpent: 22.67},
+    {dayNum: 2, day: 13, month: 0, year: 2020, moneySpent: 23.12},
+    {dayNum: 3, day: 14, month: 0, year: 2020, moneySpent: 26.65},
+    {dayNum: 4, day: 15, month: 0, year: 2020, moneySpent: 26.65},
+    {dayNum: 5, day: 16, month: 0, year: 2020, moneySpent: 26.65},
+    {dayNum: 6, day: 17, month: 0, year: 2020, moneySpent: 26.65},
+]
+
+fillCalendar();
 
 
+
+
+function fillCalendar() {
+    for (let i = 0; i < data.length; i++) {
+
+        console.log(data[i].day, data[i].month, data[i].year)
+        console.log(currentDay, currentMonth, currentYear)
+
+        calendar.insertAdjacentHTML('beforeend', `<div class="day" id="day${data[i].dayNum}">${data[i].dayNum}</div>`)
+        if ((currentDay == data[i].day) && (currentMonth == data[i].month) && (currentYear == data[i].year)) {
+            document.getElementById(`day${data[i].dayNum}`).classList.toggle("today")
+            moneySpentADay.textContent = `${data[i].moneySpent}`
+            alert("совпало!")
+        }
+    }
+}
+
+// function showMoneySpentADay {
+//     for (let i = 0; i < data.length; i++) {
+        
+//     }
+// }
+
+console.log(data)
+// ---------------------------
+// ---------------------------
+// ---------------------------
 
 
 

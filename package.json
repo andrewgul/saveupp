@@ -1,0 +1,28 @@
+{
+  "name": "saveapp",
+  "version": "1.0.0",
+  "description": "app to manage your finances",
+  "main": "code.js",
+  "dependencies": {
+    "chart.js": "^2.9.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewgul/saveupp.git"
+  },
+  "keywords": [
+    "saveupp",
+    "money",
+    "finances"
+  ],
+  "author": "Andrew Gulin <andrewgul@yandex.ru>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewgul/saveupp/issues"
+  },
+  "homepage": "https://github.com/andrewgul/saveupp#readme"
+}
