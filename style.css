@@ -4,6 +4,10 @@
 
 
 */
+:root {
+
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -125,9 +129,15 @@ body {
     align-items: center;
 }
 
+.money-spent-a-day-date {
+    margin-left: 20px;
+}
+
 #money-spent-a-day {
     margin: 0 10px;
 }
+
+
 
 .btn-change {
     background-color: #1210FF;

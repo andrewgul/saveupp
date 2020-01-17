@@ -6,8 +6,10 @@ const showEndDate = document.getElementById("end-date");
 const daysPassed = document.getElementById("days-passed");
 const daysLeft = document.getElementById("days-left");
 const calendar = document.getElementById("calendar");
+const moneySpentADayDate = document.getElementById("money-spent-a-day-date")
 const moneySpentADay = document.getElementById("money-spent-a-day");
 
+let prevDay;
 
 let currentDay = date.getDate();
 let currentMonth = date.getMonth();
@@ -19,15 +21,15 @@ let currentYear = date.getFullYear();
 // В дальнейшем эти данные будут вводиться пользователем,
 // а потом браться из локального хранлилища
 //  
-    // let startDay = currentDay
-    // let startMonth = currentMonth
-    // let startYear = currentYear
-    let startDay = 12
+// let startDay = currentDay
+// let startMonth = currentMonth
+// let startYear = currentYear
+let startDay = 12
     let startMonth = 0
     let startYear = currentYear
 
     let daysToSurvive = 18;
-// Временный блок
+    // Временный блок
 // В дальнейшем эти данные будут рассчитываться 
 // после введения пользователем, сохраняться,
 // а потом браться из локального хранлилища
@@ -35,6 +37,16 @@ let currentYear = date.getFullYear();
     let endDay; // = 18;
     let endMonth; // = 0;
     let endYear; // = 2020;
+
+    let data = [
+        {dayNum: 1, day: 12, month: 0, year: 2020, moneySpent: 22.67},
+        {dayNum: 2, day: 13, month: 0, year: 2020, moneySpent: 23.12},
+        {dayNum: 3, day: 14, month: 0, year: 2020, moneySpent: 26.65},
+        {dayNum: 4, day: 15, month: 0, year: 2020, moneySpent: 11.33},
+        {dayNum: 5, day: 16, month: 0, year: 2020, moneySpent: 67.45},
+        {dayNum: 6, day: 17, month: 0, year: 2020, moneySpent: 24.17},
+        {dayNum: 7, day: 18, month: 0, year: 2020, moneySpent: 25.17},
+    ]
 //
 // Конец временного блока
 
@@ -55,13 +67,31 @@ let months = [
 
 if (currentYear == (2020 || 2025 || 2030 || 2035)) { months[2].days = 29 }
 
+
+
+// Подсчитывает конечную дату
 countEndDate();
+fillCalendar();
 
 todayIs.textContent = `${currentDay} ${showMonth(currentMonth)} ${currentYear}`
 showStartDate.textContent = `${startDay} ${showMonth(startMonth)} ${startYear}`
 showEndDate.textContent = `${endDay} ${showMonth(endMonth)} ${endYear}`
 daysPassed.textContent = `${countDaysPassed()}`;
 daysLeft.textContent = `${daysToSurvive - countDaysPassed()}`;
+
+calendar.addEventListener('click', function (event) {
+    let clickedCalDay = event.target
+    let numToCompare = (+clickedCalDay.id)
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].dayNum == numToCompare) {
+            moneySpentADayDate.textContent = `${data[i].day} ${showMonth(data[i].month)} ${data[i].year}`
+            moneySpentADay.textContent = `${data[i].moneySpent}`
+            document.getElementById(`${prevDay}`).classList.toggle("day-chosen")
+            document.getElementById(`${i + 1}`).classList.toggle("day-chosen")
+            prevDay = i + 1;
+        }
+    }
+}); 
 
 function showMonth(month) {
     for (let i = 0; i < months.length; i++) {
@@ -97,48 +127,17 @@ function countDaysPassed() {
     }
 }
 
-//  ---------------------------
-// Блок для заполнения календаря
-// ---------------------------
-let data = [
-    {dayNum: 1, day: 12, month: 0, year: 2020, moneySpent: 22.67},
-    {dayNum: 2, day: 13, month: 0, year: 2020, moneySpent: 23.12},
-    {dayNum: 3, day: 14, month: 0, year: 2020, moneySpent: 26.65},
-    {dayNum: 4, day: 15, month: 0, year: 2020, moneySpent: 26.65},
-    {dayNum: 5, day: 16, month: 0, year: 2020, moneySpent: 26.65},
-    {dayNum: 6, day: 17, month: 0, year: 2020, moneySpent: 26.65},
-]
-
-fillCalendar();
-
-
-
-
 function fillCalendar() {
     for (let i = 0; i < data.length; i++) {
-
-        console.log(data[i].day, data[i].month, data[i].year)
-        console.log(currentDay, currentMonth, currentYear)
-
-        calendar.insertAdjacentHTML('beforeend', `<div class="day" id="day${data[i].dayNum}">${data[i].dayNum}</div>`)
+        calendar.insertAdjacentHTML('beforeend', `<div class="day" id="${data[i].dayNum}">${data[i].dayNum}</div>`)
         if ((currentDay == data[i].day) && (currentMonth == data[i].month) && (currentYear == data[i].year)) {
-            document.getElementById(`day${data[i].dayNum}`).classList.toggle("today")
+            document.getElementById(`${data[i].dayNum}`).classList.toggle("today")
+            document.getElementById(`${data[i].dayNum}`).classList.toggle("day-chosen")
+            prevDay = data[i].dayNum;
+            moneySpentADayDate.textContent = `${data[i].day} ${showMonth(data[i].month)} ${data[i].year}`
             moneySpentADay.textContent = `${data[i].moneySpent}`
-            alert("совпало!")
         }
     }
 }
-
-// function showMoneySpentADay {
-//     for (let i = 0; i < data.length; i++) {
-        
-//     }
-// }
-
-console.log(data)
-// ---------------------------
-// ---------------------------
-// ---------------------------
-
 
 
