@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <!-- <link rel="stylesheet" href="../style.css"> -->
+    <style>
+        .display-none {
+            display: none !important; 
+        }
+    </style>
+
+</head>
+<body>
+    <div class="wrapper has-background-light" style="height: 100vh;">
+        <!-- Header -->
+        <!-- Не должен меняться -->
+        <section class="hero is-info has-text-centered">
+            <div class="hero-body">
+                <div class="container">
+                <h1 class="title">
+                    <i class="fas fa-wallet"></i>
+                    SaveUpp
+                </h1>
+                </div>
+            </div>
+        </section>
+        <!-- /Header -->
+
+        
+        <section class="section">
+            <div class="container">
+                <!-- H2 меняется в зависимости от состояния (state1 - "Hello!", state2 - "Hello, ${userName}", state3 - "You've done it!") -->
+                <h2 class="title">Hello, Andrew!</h2>
+                <h3 class="subtitle"> How's it going?</h3>
+                <div class="columns" id="main">
+                    <div class="column">
+                        <!-- Тут информация про деньги в общем -->
+                        <div class="box">
+                            <div class="level">
+                                <div class="level-item has-text-centered">
+                                    <div>
+                                    <p class="heading is-size-6">Money spent</p>
+                                    <p class="title is-size-4 is-size-4" id="moneySpent">- 456$</p>
+                                    </div>
+                                </div>
+                                <div class="level-item has-text-centered">
+                                    <div>
+                                    <p class="heading is-size-6">Money left</p>
+                                    <p class="title is-size-4" id="moneyLeft">125$</p>
+                                    </div>
+                                </div>
+                                <div class="level-item has-text-centered">
+                                    <div>
+                                    <p class="heading is-size-6">You should spend</p>
+                                    <p class="title is-size-4" id="youShouldSpend">456K</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Тут "календарь" -->
+                        <div class="box">
+                            <div class="subtile has-text-centered">
+                                <span class="tag is-info is-large is-light"> <i class="fas fa-calendar-day"></i></span>
+                                <span class="subtitle">&nbsp;Calendar</span>
+                            </div>
+                            <hr>
+                            <div class="calendar has-text-centered">
+                                <span class="tag is-light is-large">1</span>
+                                <span class="tag is-light is-large">2</span>
+                                <span class="tag is-light is-large">3</span>
+                                <span class="tag is-info is-large">4</span>
+                                <span class="tag is-light is-large">5</span>
+                                <span class="tag is-light is-large">6</span>
+                                <span class="tag is-light is-large">8</span>
+                                <span class="tag is-light is-large">9</span>
+                                <span class="tag is-light is-large">10</span>
+                            </div>
+                            <hr>
+                            <div class="calendar-info has-text-centered">
+                                <!-- тут будет выводиться информация в зависимости от выбранного дня -->
+                                <div class="level">
+                                    <div class="level-item has-text-centered">
+                                        <div>
+                                            <p class="heading is-size-6">Date</p>
+                                            <p class="title is-size-4" id="moneySpent">25.01.2017</p>
+                                        </div>
+                                    </div>
+                                    <div class="level-item has-text-centered">
+                                        <div>
+                                            <p class="heading is-size-6">Money Spent</p>
+                                            <!-- Отображение кол-ва денег -->
+                                            <p class="title is-size-4 display-none" id="showAmount">
+                                                <span>25.10$</span>
+                                                &nbsp;<button class="button is-info">Change</button>
+                                             </p>   
+                                            <!-- Изменение кол-ва денег -->
+                                            <div class="field has-addons" id="changeAmount">
+                                                <div class="control">
+                                                    <input class="input" type="text" placeholder="Enter new amount">
+                                                </div>
+                                                <!-- Кнопка отмены -->
+                                                <div class="control" id="btnCancel">
+                                                    <a class="button is-danger">
+                                                        <i class="fas fa-times"></i>
+                                                    </a>
+                                                </div>
+                                                <!-- Кнопка ок -->
+                                                <div class="control" id="btnOk">
+                                                    <a class="button is-info">
+                                                    OK
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+                   <div class="column">
+                       <div class="box">
+                        <canvas id="myChart"></canvas>
+                        </div>
+                   </div>
+                   
+                </div>
+            </div>
+        </section>
+
+
+
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        </script>
+    <script src="script.js"></script>
+</body>
+</html>

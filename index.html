@@ -4,71 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SaveUpp</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
 </head>
 <body>
-    <div class="wrapper header">
-        <div class="header-container container">
-            <h2 class="logo">
-                SaveUpp
-            </h2>
-            <p class="slogan">
-                Save up your money... easier!
-            </p>
-        </div>
-    </div>
-    <div class="wrapper content">
-        <div class="container"> 
-            <div class="box">
-                <div class="text">
-                    <span class="desc">Today is</span>
-                    <span class="value" id="today-is"></span>
-                </div>
-                <div class="line"></div>
-                <div class="text">
-                    <span class="desc">Start</span>
-                    <span class="value" id="start-date"></span>
-                </div>
-                <div class="line"></div>
-                <div class="text">
-                    <span class="desc">End</span>
-                    <span class="value" id="end-date"></span>
-                </div>
-                <div class="line"></div>
-                <div class="text">
-                    <span class="desc">Days passed</span>
-                    <span class="value" id="days-passed"></span>
-                </div>
-                <div class="line"></div>
-                <div class="text">
-                    <span class="desc">Days left</span>
-                    <span class="value" id="days-left"></span>
+    <div class="wrapper has-background-light" style="height: 100vh;">
+        <!-- Header -->
+        <!-- Не должен меняться -->
+        <section class="hero is-info has-text-centered">
+            <div class="hero-body">
+                <div class="container">
+                <h1 class="title">
+                    <i class="fas fa-wallet"></i>
+                    SaveUpp
+                </h1>
                 </div>
             </div>
-            <div class="box calendar-money-spent">
-                <div class="calendar" id="calendar">
-                    <!-- <span class="desc">Calendar</span> -->
-                    <!-- <div class="day day-passed">3</div> -->
-                    <!-- <div class="day today">4</div> -->
-                    <!-- <div class="day">5</div> -->
-                </div>
-                <div class="hor-line"></div>
-                <div class="day-money-spent">
-                    <div class="desc">Date</div>
-                    <div class="value" id="money-spent-a-day-date"></div>  
-                </div>
-                <div class="day-money-spent">
-                    <div class="desc">Money spent</div>
-                    <div class="value" id="money-spent-a-day">121.21$</div>
-                    <div class="btn-change" id="btn-change">Change</div>
-                </div>
-            </div>
-        </div>
+        </section>
+        <!-- /Header -->
+
         
+        <section class="section">
+            <div class="container" id="main">
+               
+                <!-- Контент отображается тут! -->
+
+            </div>
+        </section>
+
+        <script src="node_modules\chart.js\dist\Chart.min.js"></script>
+        <script src="moment.js"></script>
+        <script src="script.js"></script>
     </div>
-    <script src="code.js"></script>
-    
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 const date = new Date();
 
 const todayIs = document.getElementById("today-is");
@@ -15,7 +16,7 @@ let currentDay = date.getDate();
 let currentMonth = date.getMonth();
 let currentYear = date.getFullYear();
 
-// let moneyToSpend = prompt("How much money you have?")
+let moneyToSpend = prompt("How much money you have?")
 
 // Временный блок
 // В дальнейшем эти данные будут вводиться пользователем,
@@ -66,8 +67,6 @@ let months = [
 ]
 
 if (currentYear == (2020 || 2025 || 2030 || 2035)) { months[2].days = 29 }
-
-
 
 // Подсчитывает конечную дату
 countEndDate();
@@ -141,3 +140,17 @@ function fillCalendar() {
 }
 
 
+
+// Эта функция считает потраченные деньги за все время
+function countMoneySpent(arr) {
+    let sum = 0
+    for (let i = 0; i < arr.length; i++){
+        sum += arr[i].moneySpent
+    }
+    return sum
+}
+
+function countMoneyLeft(){return moneyToSpend - countMoneySpent(data)}
+
+
+alert(moment().format('MMMM Do YYYY, HH:mm:ss'))

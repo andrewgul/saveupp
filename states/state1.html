@@ -38,7 +38,7 @@
                             <div class="field">
                                 <label class="label">What's your name?</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="Name" maxlength="20">
+                                    <input class="input" type="text" placeholder="Name" maxlength="20" id="inputUserName">
                                 </div>
                             </div>
                             <!-- Сколько денег -->
@@ -47,7 +47,7 @@
                                 <div class="field has-addons">
                                 <p class="control">
                                   <span class="select">
-                                    <select>
+                                    <select id="selectCurrency">
                                       <option>$</option>
                                       <option>£</option>
                                       <option>€</option>
@@ -56,7 +56,7 @@
                                   </span>
                                 </p>
                                 <p class="control is-expanded">
-                                  <input class="input" type="text" placeholder="50 – 99 999" maxlength="5">
+                                  <input class="input" type="text" placeholder="50 – 99 999" maxlength="5" id="inputMoneyToSpend">
                                 </p>
                               </div>
                             </div>
@@ -65,7 +65,7 @@
                                 <div class="field column">
                                     <label class="label">How many days?</label>
                                     <div class="control">
-                                        <input class="input" type="text" placeholder="5 – 30" maxlength="2">
+                                        <input class="input" type="text" placeholder="5 – 30" maxlength="2" id="inputDaysToSurvive">
                                     </div>
                                 </div>
                                 <!-- Начало -->
@@ -73,7 +73,7 @@
                                     <label class="label">Start day?</label>
                                     <div class="control">
                                         <div class="select is-fullwidth">
-                                        <select>
+                                        <select id="selectStartDay">
                                             <option>Select dropdown</option>
                                             <option>With options</option>
                                         </select>
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                             <div class="field">
-                                <button class="button is-info is-fullwidth">Let's go!</button>
+                                <button class="button is-info is-fullwidth" onclick="start()">Let's go!</button>
                             </div>
                         </form>
                     </div>
@@ -100,7 +100,7 @@
             </div>
         </section>
 
-        
+        <script src="script.js"></script>
     </div>
 </body>
 </html>
