@@ -24,7 +24,7 @@ updateInfo()
 function updateInfo() { // может loadInfo...
     document.getElementById("moneySpent").textContent = countMoneySpent() + currency
     document.getElementById("moneyLeft").textContent = countMoneyLeft() + currency
-    // document.getElementById("youShouldSpend").textContent = countShouldSpend()
+    document.getElementById("youShouldSpend").textContent = countShouldSpend() + currency
 }
 
 function countMoneySpent() {
@@ -39,6 +39,9 @@ function countMoneyLeft() {
     return money - countMoneySpent() 
 }
 
+function countShouldSpend() {
+    return (money / daysInfo.length).toFixed(2)
+}
  
 // Заполняем выбор дня календаря в зависимости от длины массива userData
 function fillCalSelectDay() {
