@@ -25,8 +25,10 @@ let selectedDay = today()
 // это должно произойти до отрисовки state2
 
 
-// Из полученных данных рассчитываем:
-// деньги потраченные, оставшиеся, и сколько денег нужно тратить в день
+// ------------------------------------------------------------
+// ОЧЕНЬ ВАЖНАЯ ФУНКЦИЯ
+// Обновляет все при изменении потраченных денег
+// ------------------------------------------------------------
 
 updateInfo()
 
@@ -34,93 +36,8 @@ function updateInfo() { // может loadInfo...
     document.getElementById("moneySpent").textContent = countMoneySpent() + currency
     document.getElementById("moneyLeft").textContent = countMoneyLeft() + currency
     document.getElementById("youShouldSpend").innerHTML = countShouldSpend() + currency
+    fillCalSelectDay()
 }
-
-function countMoneySpent() {
-    sum = 0
-    for (let i = 0; i < daysInfo.length; i++) {
-        sum += daysInfo[i].moneySpent
-    }
-    return sum
-}
-
-function countMoneyLeft() {
-    return money - countMoneySpent() 
-}
-
-function countShouldSpend() {
-    if (today) {
-        return (countMoneyLeft()/(daysToSurvive - today() + 1)).toFixed(2)
-    } else {
-        return ""
-    }
-}
- 
-// Заполняем выбор дня календаря в зависимости от длины массива userData
-function fillCalSelectDay() {
-    let calSelectDay = document.getElementById("calSelectDay")
-    for (let i = 0; i < daysInfo.length; i++) {
-        calSelectDay.insertAdjacentHTML('beforeend', `<button class="button cal-day" id="${i + 1}">${i + 1}</button>\n`)
-    }
-    if (today()) changeSelectedDay(today() + 1)
-}
-
-fillCalSelectDay()
-
-
-
-
-// Показ данных в зависимости от кнопки, на которую тыкнули
-// eventListener вешаем только в случае загрузки state2!
-document.getElementById("calSelectDay").addEventListener('click', function (event) {
-    changeSelectedDay(event.target.id)
-});
-
-
-function changeSelectedDay(dayId) {
-    for (let i = 0; i < daysInfo.length; i++) {
-        if (dayId == i + 1) {
-            document.getElementById(`${selectedDay}`).classList.remove("is-info")
-            document.getElementById("calDate").textContent = daysInfo[i].date
-            document.getElementById("calMoneySpent").textContent = daysInfo[i].moneySpent + currency
-            selectedDay = i + 1
-            document.getElementById(`${selectedDay}`).classList.add("is-info")
-            console.log(selectedDay)
-        }
-    }
-}
-
-// Все, что ниже -- функции для кнопок
-
-function btnChangePressed() {
-    document.getElementById("changeAmount").classList.remove("display-none")
-    document.getElementById("showAmount").classList.add("display-none")
-}
-
-function btnCancelPressed() {
-    document.getElementById("showAmount").classList.remove("display-none")
-    document.getElementById("changeAmount").classList.add("display-none")
-}
-
-function btnOkPressed() {
-    if (amountIsValid()) {
-        // обновить массив
-        daysInfo[selectedDay - 1].moneySpent = parseInt(document.getElementById("newAmount").value)
-    }
-}
-
-function amountIsValid() {
-    // проверка что введенное значение удовлетворяет требованиям
-    // (не больше оставшейся суммы, является числом)
-    return true
-}
-
-//Чтобы сравнивать дату с помощью момент
-// нужен формат "LL", который я решил использовать
-/*
-     alert(moment().format("LL") == "February 4, 2020")
-*/
-
 
 // Проверка того, какой сегодня день
 // Функция говорит нам какой сегодня день по счету
@@ -135,12 +52,117 @@ function today() {
     }
 }
 
-markToday()
+// Из полученных данных рассчитываем:
+// деньги потраченные, оставшиеся, и сколько денег нужно тратить в день
+
+function countMoneySpent() {
+    sum = 0
+    for (let i = 0; i < daysInfo.length; i++) {
+        sum += daysInfo[i].moneySpent
+    }
+    return sum
+}
+
+function countMoneyLeft() {
+    return money - countMoneySpent() 
+}
+
+function countShouldSpend() {
+    if (today()) {
+        return (countMoneyLeft()/(daysToSurvive - today() + 1)).toFixed(2)
+    } else {
+        return ""
+    }
+}
+ 
+// Заполняем выбор дня календаря в зависимости от длины массива userData
+
+function fillCalSelectDay() {
+    let calSelectDay = document.getElementById("calSelectDay")
+    for (let i = 0; i < daysInfo.length; i++) {
+        calSelectDay.insertAdjacentHTML('beforeend', `<button class="button cal-day" id="${i + 1}">${i + 1}</button>\n`)
+    }
+    if (today()) {
+        changeSelectedDay(today() + 1)
+        markToday()
+    }
+}
+
+// Функция для смены выбранного дня
+// Убирает выделение предыдущего дня,
+// добавляет его для нового
+// Меняет данные в соответствии с выбранным днем
+
+function changeSelectedDay(dayId) {
+    for (let i = 0; i < daysInfo.length; i++) {
+        if (dayId == i + 1) {
+            document.getElementById(`${selectedDay}`).classList.remove("is-info")
+            document.getElementById("calDate").textContent = daysInfo[i].date
+            document.getElementById("calMoneySpent").textContent = daysInfo[i].moneySpent + currency
+            selectedDay = i + 1
+            document.getElementById(`${selectedDay}`).classList.add("is-info")
+            console.log(selectedDay)
+        }
+    }
+}
+
+// Если выбранный срок не прошел, отмечаем сегодняшний день
 
 function markToday() {
     document.getElementById(`${today() + 1}`).classList.add("is-today")
 }
 
+// Показ данных в зависимости от кнопки, на которую тыкнули
+// eventListener вешаем только в случае загрузки state2!
+
+document.getElementById("calSelectDay").addEventListener('click', function (event) {
+    changeSelectedDay(event.target.id)
+});
+
+
+
+
+// Все, что ниже -- функции для кнопок
+
+function btnChangePressed() {
+    document.getElementById("changeAmount").classList.remove("display-none")
+    document.getElementById("showAmount").classList.add("display-none")
+}
+
+function btnCancelPressed() {
+    closeChangeAmount()
+}
+
+function btnOkPressed() {
+    if (amountIsValid()) {
+        // обновление данных в localStorage и бла-бла-бла
+        alert("Yes!")
+        closeChangeAmount()
+    }
+}
+
+// проверка что введенное значение удовлетворяет требованиям
+// (не больше оставшейся суммы, является числом)
+// !!! возможно пихну это в функцию btnOkPressed
+function amountIsValid() {
+    amount = document.getElementById("newAmount").value
+    if (Number.parseInt(amount) < countMoneyLeft()) {
+        return true
+    } else {
+        return false
+    }
+}
+
+function closeChangeAmount() {
+    document.getElementById("showAmount").classList.remove("display-none")
+    document.getElementById("changeAmount").classList.add("display-none")
+}
+
+//Чтобы сравнивать дату с помощью момент
+// нужен формат "LL", который я решил использовать
+/*
+     alert(moment().format("LL") == "February 4, 2020")
+*/
 
 // То, что ниже, нужно для таблицы, пока не трогай!
 let ctx = document.getElementById('myChart').getContext('2d');
@@ -170,5 +192,3 @@ let chart = new Chart(ctx, {
 
     
 });
-
-
