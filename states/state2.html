@@ -29,8 +29,8 @@
         <section class="section">
             <div class="container">
                 <!-- H2 меняется в зависимости от состояния (state1 - "Hello!", state2 - "Hello, ${userName}", state3 - "You've done it!") -->
-                <h2 class="title">Hello, Andrew!</h2>
-                <h3 class="subtitle"> How's it going?</h3>
+                <h2 class="title" id="greeting">Hello, Andrew!</h2>
+                <h3 class="subtitle" id="comment"> How's it going?</h3>
                 <div class="columns" id="main">
                     <div class="column">
                         <!-- Тут информация про деньги в общем -->
@@ -40,21 +40,21 @@
                                     <div>
                                     <p class="heading is-size-6">Money spent</p>
                                     <!-- Сколько денег потрачено -->
-                                    <p class="title is-size-4 is-size-4" id="moneySpent">- 456$</p>
+                                    <p class="title is-size-4 is-size-4" id="moneySpent"><i class="fas fa-ellipsis-h"></i></p>
                                     </div>
                                 </div>
                                 <div class="level-item has-text-centered">
                                     <div>
                                     <p class="heading is-size-6">Money left</p>
                                     <!-- Сколько денег осталось -->
-                                    <p class="title is-size-4" id="moneyLeft">125$</p>
+                                    <p class="title is-size-4" id="moneyLeft"><i class="fas fa-ellipsis-h"></i></p>
                                     </div>
                                 </div>
                                 <div class="level-item has-text-centered">
                                     <div>
                                     <p class="heading is-size-6">You should spend</p>
                                     <!-- Сколько стоит тратить в день -->
-                                    <p class="title is-size-4" id="youShouldSpend">456K</p>
+                                    <p class="title is-size-4" id="youShouldSpend"><i class="fas fa-ellipsis-h"></i></p>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                                             <p class="heading is-size-6">Money Spent</p>
                                             <!-- Отображение кол-ва денег -->
                                             <p class="title is-size-4" id="showAmount">
-                                                <span id="calMoneySpent">25.10$</span>
+                                                <span id="calMoneySpent"><i class="fas fa-spinner"></i></span>
                                                 &nbsp;<button class="button is-info" onclick="btnChangePressed()">Change</button>
                                              </p>   
                                             <!-- Изменение кол-ва денег -->
