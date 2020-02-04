@@ -216,4 +216,3 @@ function getDataFromForm() {
 function getDataFromLocalStorgae() {
     return JSON.parse(localStorage.getItem("userData"))
 }
-

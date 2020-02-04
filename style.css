@@ -2,3 +2,7 @@
     display: none !important;
 }
 /* Без имопртант с бульмой не хотело работать... :( */
+
+.cal-day {
+    margin-bottom: 5px;
+}
