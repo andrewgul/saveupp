@@ -24,7 +24,9 @@ let selectedDay = today()
 // Получаем данные, которые не будут меняться
 // это должно произойти до отрисовки state2
 
+console.log("Сегодня " + today() + " день экономии")
 
+let todayIs = moment().format("LL")
 // ------------------------------------------------------------
 // ОЧЕНЬ ВАЖНАЯ ФУНКЦИЯ
 // Обновляет все при изменении потраченных денег
@@ -43,13 +45,13 @@ function updateInfo() { // может loadInfo...
 // Функция говорит нам какой сегодня день по счету
 function today() {
     let tday = moment().format("LL")
+    let rtrn = null
     for (let i = 0; i < daysInfo.length; i++) {
         if (daysInfo[i].date == tday) {
-            return i + 1
-        } else {
-            return false
+            rtrn = i + 1
         }
     }
+    return rtrn
 }
 
 // Из полученных данных рассчитываем:
@@ -83,7 +85,7 @@ function fillCalSelectDay() {
         calSelectDay.insertAdjacentHTML('beforeend', `<button class="button cal-day" id="${i + 1}">${i + 1}</button>\n`)
     }
     if (today()) {
-        changeSelectedDay(today() + 1)
+        changeSelectedDay(today())
         markToday()
     }
 }
@@ -109,7 +111,7 @@ function changeSelectedDay(dayId) {
 // Если выбранный срок не прошел, отмечаем сегодняшний день
 
 function markToday() {
-    document.getElementById(`${today() + 1}`).classList.add("is-today")
+    document.getElementById(`${today()}`).classList.add("is-today")
 }
 
 // Показ данных в зависимости от кнопки, на которую тыкнули
@@ -135,7 +137,8 @@ function btnCancelPressed() {
 
 function btnOkPressed() {
     if (amountIsValid()) {
-        // обновление данных в localStorage и бла-бла-бла
+        let amount = document.getElementById("newAmount").value
+        updateDayInfo(selectedDay, amount)
         alert("Yes!")
         closeChangeAmount()
     }
@@ -145,7 +148,7 @@ function btnOkPressed() {
 // (не больше оставшейся суммы, является числом)
 // !!! возможно пихну это в функцию btnOkPressed
 function amountIsValid() {
-    amount = document.getElementById("newAmount").value
+    let amount = document.getElementById("newAmount").value
     if (Number.parseInt(amount) < countMoneyLeft()) {
         return true
     } else {
@@ -192,3 +195,17 @@ let chart = new Chart(ctx, {
 
     
 });
+
+// Обновление инфы
+// также обновление local storage
+function updateDayInfo(day, newAmount) {
+    let dayIndex = day - 1
+    daysInfo[dayIndex].moneySpent = Number.parseInt(newAmount)
+    localStorage.setItem("userData", JSON.stringify(userData))
+    //
+    // далее тут должна быть функция, которая обновляет все (т.к. данные изменились)
+    //
+    document.getElementById("moneySpent").textContent = countMoneySpent() + currency
+    document.getElementById("moneyLeft").textContent = countMoneyLeft() + currency
+    document.getElementById("youShouldSpend").innerHTML = countShouldSpend() + currency
+} 
