@@ -35,7 +35,7 @@ let todayIs = moment().format("LL")
 updateInfo()
 
 function updateInfo() { // может loadInfo...
-    document.getElementById("moneySpent").textContent = countMoneySpent() + currency
+    document.getElementById("moneySpent").textContent = "– " + countMoneySpent() + currency
     document.getElementById("moneyLeft").textContent = countMoneyLeft() + currency
     document.getElementById("youShouldSpend").innerHTML = countShouldSpend() + currency
     fillCalSelectDay()
@@ -136,12 +136,14 @@ function btnCancelPressed() {
 }
 
 function btnOkPressed() {
+    let amount
     if (amountIsValid()) {
-        let amount = document.getElementById("newAmount").value
+         amount = document.getElementById("newAmount").value
         updateDayInfo(selectedDay, amount)
-        alert("Yes!")
+        // hideShow("changeAmount", "showAmount")
         closeChangeAmount()
     }
+    amount = ""
 }
 
 // проверка что введенное значение удовлетворяет требованиям
@@ -161,40 +163,13 @@ function closeChangeAmount() {
     document.getElementById("changeAmount").classList.add("display-none")
 }
 
-//Чтобы сравнивать дату с помощью момент
-// нужен формат "LL", который я решил использовать
-/*
-     alert(moment().format("LL") == "February 4, 2020")
-*/
 
-// То, что ниже, нужно для таблицы, пока не трогай!
-let ctx = document.getElementById('myChart').getContext('2d');
-let chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
+// "Экспериментальная" функция
+function hideShow(hide, show) {
+    document.getElementById(hide).classList.remove("display-none")
+    document.getElementById(show).classList.add("display-none")
+}
 
-    // The data for our dataset
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'],
-        datasets: [{
-            fill: false,
-            lineTension: 0.25,
-            label: 'My First dataset',
-            backgroundColor: '#209CEE',
-            borderColor: '#209CEE',
-            data: [0, 10, 15, 2, 20, 30, 45, 0]
-        },]
-    },
-
-
-
-    // Configuration options go here
-    options: {
-        // ...
-    },
-
-    
-});
 
 // Обновление инфы
 // также обновление local storage
@@ -205,7 +180,80 @@ function updateDayInfo(day, newAmount) {
     //
     // далее тут должна быть функция, которая обновляет все (т.к. данные изменились)
     //
-    document.getElementById("moneySpent").textContent = countMoneySpent() + currency
+    
+    updateChart()
+    document.getElementById("moneySpent").textContent = "– " + countMoneySpent() + currency
     document.getElementById("moneyLeft").textContent = countMoneyLeft() + currency
     document.getElementById("youShouldSpend").innerHTML = countShouldSpend() + currency
+    changeSelectedDay(selectedDay)
 } 
+
+//Чтобы сравнивать дату с помощью момент
+// нужен формат "LL", который я решил использовать
+/*
+     alert(moment().format("LL") == "February 4, 2020")
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// То, что ниже, нужно для таблицы, пока не трогай!
+let ctx = document.getElementById('myChart').getContext('2d');
+
+updateChart()
+
+function updateChart() {
+    let chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+    
+        // The data for our dataset
+        data: {
+            labels: chartLabels(),
+            datasets: [{
+                fill: false,
+                lineTension: 0.25,
+                label: 'Spendings',
+                backgroundColor: '#209CEE',
+                borderColor: '#209CEE',
+                data: chartData()
+            },]
+        },
+    
+    
+    
+        // Configuration options go here
+        options: {
+        },
+    
+        
+    });
+
+    return chart
+}
+
+
+function chartLabels() {
+    let labels = []
+    for (let i = 1; i < daysInfo.length + 1; i++){
+        labels.push(i)
+    }
+    console.log(labels)
+    return labels
+}
+
+function chartData() {
+    let data = daysInfo.map(item => item.moneySpent)
+    console.log(data)
+    return data
+}
