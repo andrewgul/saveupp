@@ -83,8 +83,9 @@ function setState1(){
         <div class="column">
             <label class="label">How this app can help you?</label>
             <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi quam facere reiciendis magnam porro blanditiis quibusdam quos officiis atque culpa doloribus, repellat repudiandae reprehenderit error architecto. Earum laudantium aliquam explicabo.
-            </p>
+            Sometimes you have limited amount of money for a certain time interval (example: 250$ for a week), so you need to spend this sum wisely. This app can help you track your spendings during the time you choose, it’ll show money you spent on a chart. Also it will count amount of money you should spend a day so you’ll be able  make it through without any problems. 
+            Hope you’ll like it!
+                        </p>
             <p>
                 Also visit my <a href="https://github.com/andrewgul" targer="_blank"><i class="fab fa-github"></i>&nbsp;Github</a>!
             </p>
@@ -230,8 +231,6 @@ function getDataFromForm() {
 // Изначнально выбирается сегодняшний день,
 // если его нет, то последний день в списке
 
-startState2()
-
 function startState2() {
     userData = JSON.parse(localStorage.getItem("userData"))
     // let {name, money, currency, daysToSurvive} = userData    
@@ -265,7 +264,7 @@ function startState2() {
 function setState2() {
     main.innerHTML = `<div class="container">
     <!-- H2 меняется в зависимости от состояния (state1 - "Hello!", state2 - "Hello, ", state3 - "You've done it!") -->
-    // <h2 class="title" id="greeting">Hello, Andrew!</h2>
+    <h2 class="title" id="greeting">Hello, ${name}!</h2>
     <h3 class="subtitle" id="comment"> How's it going?</h3>
     <div class="columns" id="main">
         <div class="column">
@@ -507,6 +506,7 @@ function updateDayInfo(day, newAmount) {
 
 // То, что ниже, нужно для таблицы
 
+// Заново рисует таблицу с новыми данными
 function updateChart() {
 
     let ctx = document.getElementById('myChart').getContext('2d');
